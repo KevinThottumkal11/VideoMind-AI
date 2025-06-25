@@ -14,6 +14,8 @@ interface ChatbotProps {
   isVisible: boolean;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
+
 export function Chatbot({ videoUrl, isVisible }: ChatbotProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -48,7 +50,7 @@ export function Chatbot({ videoUrl, isVisible }: ChatbotProps) {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8001/chat", {
+      const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

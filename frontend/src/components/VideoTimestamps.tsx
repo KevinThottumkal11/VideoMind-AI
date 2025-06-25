@@ -14,6 +14,8 @@ interface VideoTimestampsProps {
   onTimestampClick?: (seconds: number) => void;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
+
 export function VideoTimestamps({ videoUrl, isVisible, onTimestampClick }: VideoTimestampsProps) {
   const [timestamps, setTimestamps] = useState<Timestamp[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +33,7 @@ export function VideoTimestamps({ videoUrl, isVisible, onTimestampClick }: Video
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8001/timestamps", {
+      const response = await fetch(`${API_URL}/timestamps`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

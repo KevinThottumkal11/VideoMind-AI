@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { VideoTimestamps } from "./VideoTimestamps";
 import { VideoDisplay, VideoDisplayRef } from "./VideoDisplay";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001';
+
 interface SummaryTimestamp {
   time: string;
   description: string;
@@ -112,7 +114,7 @@ export function YouTubeAnalyzer() {
 
 
     try {
-      const response = await fetch("http://localhost:8001/analyze_video", {
+      const response = await fetch(`${API_URL}/analyze_video`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -152,7 +154,7 @@ export function YouTubeAnalyzer() {
     setGeneratingEmbeddings(true); // Set loading state for embedding generation
     setVisualSearchError(""); // Clear any previous errors
     try {
-      const response = await fetch("http://localhost:8001/generate_embeddings", {
+      const response = await fetch(`${API_URL}/generate_embeddings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -184,7 +186,7 @@ export function YouTubeAnalyzer() {
     setVisualSearchResults([]);
 
     try {
-      const response = await fetch("http://localhost:8001/perform_visual_search", {
+      const response = await fetch(`${API_URL}/perform_visual_search`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -216,7 +218,7 @@ export function YouTubeAnalyzer() {
 
   const downloadSummaryPDF = async () => {
     try {
-      const response = await fetch('http://localhost:8001/download_summary_pdf', {
+      const response = await fetch(`${API_URL}/download_summary_pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -252,7 +254,7 @@ export function YouTubeAnalyzer() {
     setChatLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8001/chat", {
+      const response = await fetch(`${API_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
